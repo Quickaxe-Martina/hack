@@ -41,10 +41,12 @@ INSTALLED_APPS = [
     'rest_framework',
     # 'corsheaders'
     'rest_framework.authtoken',
+    'channels',
 
     'core.apps.CoreConfig',
     'accounts.apps.AccountsConfig',
     'chat.apps.ChatConfig',
+    'shop.apps.ShopConfig'
 ]
 
 MIDDLEWARE = [
@@ -71,6 +73,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                'hack_uchi_ru_p2p.context_processors.redishost_processor',
             ],
         },
     },
@@ -78,9 +82,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'hack_uchi_ru_p2p.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 # DATABASES = {
 #     'default': {
@@ -92,9 +93,9 @@ WSGI_APPLICATION = 'hack_uchi_ru_p2p.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('POSTGRES_DB', 'selectel'),
-        'USER': os.getenv('POSTGRES_USER', 'selectel'),
-        'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'selectel'),
+        'NAME': os.getenv('POSTGRES_DB', 'hack'),
+        'USER': os.getenv('POSTGRES_USER', 'test'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'test'),
         'HOST': os.getenv('POSTGRES_HOST', 'localhost'),
         'PORT': int(os.getenv('POSTGRES_PORT', '5432')),
     }
@@ -149,6 +150,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static')
+# ]
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
 
@@ -158,3 +163,17 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+ASGI_APPLICATION = "hack_uchi_ru_p2p.routing.application"
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [(
+                # '127.0.0.1', 6379
+                os.environ.get('REDISHOST', '127.0.0.1'),
+                int(os.environ.get('REDISPORT', 6379))
+            )],
+        },
+    },
+}

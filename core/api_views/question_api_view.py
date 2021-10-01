@@ -6,6 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from accounts.models import CustomUser
 from core.db_models.answer_db_model import Answer
 from core.db_models.question_db_model import Question
 from core.serializers.answer_serializer import AnswerCloseQuestionSerializer
@@ -72,11 +73,21 @@ class QuestionDetailAPIView(APIView):
         answers = Answer.objects.filter(~Q(author=request.user), pk__in=map_answers.keys())
 
         y_coin = q.prise * 4 / answers.count()
+        users_list = []
         for a in answers:
             a.user_grade = map_answers[a.pk]
-            a.author.y_coin += y_coin
-            a.author.save()
+
+            user = a.author
+            user.y_coin += y_coin
+            user.exp_count += map_answers[a.pk] * 30
+            user.level = user.exp_count / 400
+            user.faculty_count += map_answers[a.pk]
+            users_list.append(user)
+
+            a.author.faculty.score += map_answers[a.pk]
+            a.author.faculty.save()
         Answer.objects.bulk_update(answers, ['user_grade'])
+        CustomUser.objects.bulk_update(users_list, ['y_coin', 'exp_count', 'level', 'faculty_count'])
 
         q.status = 'closed'
         q.save()

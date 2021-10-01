@@ -23,6 +23,7 @@ class CustomUser(AbstractUser):
         Faculty, on_delete=models.SET_NULL, verbose_name='Факультет',
         null=True, blank=True, related_name='custom_users'
     )
+    faculty_count = models.PositiveIntegerField(default=0, verbose_name='Очки факультета')
 
     avatar = models.ImageField(upload_to='user_avatar', verbose_name='Аватар', blank=True)
 

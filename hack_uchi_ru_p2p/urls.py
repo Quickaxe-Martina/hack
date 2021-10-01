@@ -6,6 +6,8 @@ from accounts.api_views.auth_api_view import UserAuthAPIView
 from accounts.api_views.avatar_api_view import UserAvatarAPIView
 from accounts.api_views.register_api_view import RegisterAPIView
 from accounts.api_views.user_api_view import UserListView, UserDetailView
+from chat.api_views.chat_api_view import ChatAPIView
+from chat.api_views.message_api_view import MessageChatListCreateView
 from core.api_views.answer_api_view import AnswerListView, AnswerDetailAPIView
 from core.api_views.faculty_api_view import FacultyListView
 from core.api_views.like_api_view import LikeAPIView
@@ -13,6 +15,8 @@ from core.api_views.question_api_view import QuestionListView, QuestionDetailAPI
 from core.api_views.subject_api_view import SubjectListView
 from core.api_views.topic_api_view import TopicListView
 from hack_uchi_ru_p2p import settings
+from shop.api_views.purchases_api_view import PurchasesListView
+from shop.api_views.shop_item_api_view import ShopItemListView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -43,6 +47,14 @@ urlpatterns = [
 
     # like
     path('like/', LikeAPIView.as_view()),
+
+    # chat
+    path('chat/', ChatAPIView.as_view()),
+    path('message/', MessageChatListCreateView.as_view()),
+
+    # shop
+    path('shop_items/', ShopItemListView.as_view()),
+    path('purchases/', PurchasesListView.as_view()),
 ]
 
 

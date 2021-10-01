@@ -10,8 +10,8 @@ class QuestionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Question
-        fields = ['id', 'topic', 'text', 'prise', 'deadline', 'exigent', 'author']
-        read_only_fields = ['id' 'author']
+        fields = ['id', 'topic', 'text', 'prise', 'deadline', 'exigent', 'author', 'status']
+        read_only_fields = ['id' 'author', 'status']
 
 
 class QuestionDetailSerializer(serializers.ModelSerializer):
@@ -20,5 +20,5 @@ class QuestionDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Question
-        fields = ['id', 'topic', 'text', 'prise', 'deadline', 'exigent', 'answers_list', 'author']
-        read_only_fields = ['id', 'answers_list', 'author']
+        fields = ['id', 'topic', 'text', 'prise', 'deadline', 'exigent', 'answers_list', 'author', 'status']
+        read_only_fields = ['id', 'answers_list', 'author', 'status']

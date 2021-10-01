@@ -1,3 +1,4 @@
+from django_filters import rest_framework as filters
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
@@ -10,6 +11,8 @@ class UserListView(generics.ListAPIView):
     serializer_class = CustomUserSerializer
     permission_classes = [IsAuthenticated]
     http_method_names = ['get']
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_fields = ('faculty',)
 
 
 class UserDetailView(generics.RetrieveAPIView):

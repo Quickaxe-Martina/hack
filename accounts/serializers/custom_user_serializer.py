@@ -16,12 +16,12 @@ class UserAuthSerializer(serializers.Serializer):
 
 
 class CustomUserSerializer(serializers.ModelSerializer):
-    faculty = FacultySerializer()
+    faculty = FacultySerializer(read_only=True)
 
     class Meta:
         model = CustomUser
         fields = [
             'id', 'username', 'first_name', 'last_name', 'middle_name',
-            'email', 'faculty', 'avatar', 'y_coin',
+            'email', 'faculty', 'avatar', 'y_coin', 'faculty_count', 'level', 'exp_count'
         ]
         read_only_fields = ['id',]

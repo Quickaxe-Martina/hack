@@ -63,12 +63,12 @@ services:
 #    volumes:
 #      - minio_data:/data
 
-#  redis:
-#    image: redis
-#    networks:
-#      - backend
-#    volumes:
-#      - redis_data:/data
+  redis:
+    image: redis
+    networks:
+      - backend
+    volumes:
+      - redis_data:/data
 
 networks:
   backend:
@@ -78,4 +78,4 @@ volumes:
 #  static:
   media:
 #  minio_data:
-#  redis_data:
+  redis_data:

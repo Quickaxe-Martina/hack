@@ -6,15 +6,17 @@ from chat.db_models.chat_db_model import Chat
 
 class MessageChat(models.Model):
     author = models.ForeignKey(
-        CustomUser, on_delete=models.SET_NULL, null=True,
+        CustomUser, on_delete=models.CASCADE,
         verbose_name='Автор сообщения', related_name='messages'
     )
     created = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
 
     chat = models.ForeignKey(
-        Chat, on_delete=models.SET_NULL, null=True,
+        Chat, on_delete=models.CASCADE,
         verbose_name='Чат', related_name='messages'
     )
+
+    file = models.FileField(upload_to='message_file', null=True, blank=True)
 
     text = models.CharField(max_length=5000, verbose_name='Текст')
 
