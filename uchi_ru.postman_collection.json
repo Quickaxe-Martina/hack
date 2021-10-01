@@ -652,6 +652,254 @@
 			]
 		},
 		{
+			"name": "chat",
+			"item": [
+				{
+					"name": "Список чатов пользователя",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/chat/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"chat",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Создать чат",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type_chat\": \"group\",\n    \"users_list\": [1, 2],\n    \"question\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/chat/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"chat",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "message",
+			"item": [
+				{
+					"name": "Список сообщений",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/message/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"message",
+								""
+							],
+							"query": [
+								{
+									"key": "chat",
+									"value": null,
+									"description": "id",
+									"disabled": true
+								},
+								{
+									"key": "author",
+									"value": null,
+									"description": "id",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Отправить сообщение",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "text",
+									"value": "fdgdfhgjhgk",
+									"type": "text"
+								},
+								{
+									"key": "chat",
+									"value": "12",
+									"description": "id",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/message/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"message",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "shop",
+			"item": [
+				{
+					"name": "Список товаров",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/shop_items/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"shop_items",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Мои заказы",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/purchases/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"purchases",
+								""
+							],
+							"query": [
+								{
+									"key": "shop_item",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Сделать покупку",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"shop_item\": 1,\n    \"user\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/purchases/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"purchases",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "base req",
 			"request": {
 				"method": "GET",

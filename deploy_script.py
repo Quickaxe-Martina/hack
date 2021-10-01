@@ -14,7 +14,7 @@ from core.db_models.faculty_db_model import Faculty
 if not CustomUser.objects.filter(username='admin').exists():
     CustomUser.objects.create_superuser(
         username='admin',
-        password='admin',
+        password='H6r3Lh\D#-~PcMQ6',
     )
 
 FACULTY = [
