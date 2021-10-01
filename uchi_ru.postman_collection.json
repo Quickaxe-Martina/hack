@@ -1,0 +1,675 @@
+{
+	"info": {
+		"_postman_id": "a1e431c2-cd76-4ddd-8ab6-c984d12129ab",
+		"name": "uchi_ru",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "регистрация",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"test1\",\n    \"password\": \"qsc_user@1\",\n    \"first_name\": \"user\",\n    \"last_name\": \"user\",\n    \"middle_name\": \"user\",\n    \"email\": \"user@email.ru\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/user/register/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"register",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "авторизация",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.environment.set(\"token\", jsonData.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"test1\",\n    \"password\": \"qsc_user@1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/user/auth/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"auth",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "список пользователей",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/user/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "деталка юзера",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/user/2/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"2",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "загрузить аватар",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/Users/u19311223/Desktop/ddd.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/user/load_avatar/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"load_avatar",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "faculty",
+			"item": [
+				{
+					"name": "Факультеты",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/faculty/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"faculty",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "subject",
+			"item": [
+				{
+					"name": "Получить список предметов",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/subject/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"subject",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "topic",
+			"item": [
+				{
+					"name": "Список тем",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/topic/?subject={{subject}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"topic",
+								""
+							],
+							"query": [
+								{
+									"key": "subject",
+									"value": "{{subject}}"
+								},
+								{
+									"key": "name",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "question",
+			"item": [
+				{
+					"name": "Список вопросов",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/question/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"question",
+								""
+							],
+							"query": [
+								{
+									"key": "topic__subject",
+									"value": "{{subject}}",
+									"disabled": true
+								},
+								{
+									"key": "topic",
+									"value": "{{topic_id}}",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "closed",
+									"description": "in_progress/closed",
+									"disabled": true
+								},
+								{
+									"key": "author",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "задать вопрос",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"topic\": {{topic_id}},\n    \"text\": \"afkdznvnk sdkndsn. dksfdgsd sdsndkgs sdnnsdv\",\n    \"prise\": 2,\n    \"deadline\": \"2021-10-21T12:00\",\n    \"exigent\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/question/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"question",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Детализация по вопросу",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/question/{{question_id}}/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"question",
+								"{{question_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Изменение вопроса",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"topic\": {{topic_id}},\n    \"text\": \"afkdznvnk sdkndsn. dksfdgsd sdsndkgs sdnnsdv2222\",\n    \"prise\": 5,\n    \"deadline\": \"2021-10-21T12:00\",\n    \"exigent\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/question/{{question_id}}/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"question",
+								"{{question_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Закрыть вопрос",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"id\": 1,\n        \"user_grade\": 4\n    },\n    {\n        \"id\": 2,\n        \"user_grade\": 4\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/question/{{question_id}}/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"question",
+								"{{question_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "answer",
+			"item": [
+				{
+					"name": "Список ответов",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/answer/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"answer",
+								""
+							],
+							"query": [
+								{
+									"key": "question",
+									"value": "{{question_id}}",
+									"disabled": true
+								},
+								{
+									"key": "author",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Создать ответ",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"text\": \"wreg fb fdgfdv sdvs\",\n    \"question\": {{question_id}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/answer/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"answer",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Деталка ответа (скорее всего не нужна)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/answer/{{answer_id}}/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"answer",
+								"{{answer_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Редактировать ответ",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"text\": \"aaaaaaa\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/answer/{{answer_id}}/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"answer",
+								"{{answer_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "likes",
+			"item": [
+				{
+					"name": "Поставить лайк ответу",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"answer\": {{answer_id}},\n    \"type\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/like/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"like",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Поставить дизлайк ответу",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"answer\": {{answer_id}},\n    \"type\": -1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/like/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"like",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "base req",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}",
+					"host": [
+						"{{url}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
