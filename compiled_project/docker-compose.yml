@@ -1,0 +1,81 @@
+version: '3'
+
+services:
+  server:
+    build:
+      context: ..
+      dockerfile: compiled_project/Dockerfile
+#    ports:
+#      - '8443:443'
+#      - '8080:80'
+    environment:
+      #    ВАЖНО!!! не добавлять кавычки к переменным, например DEBUG='True' нельзя, нужно DEBUG=True
+      - DEBUG=${DEBUG}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_HOST=${POSTGRES_HOST}
+      - POSTGRES_PORT=${POSTGRES_PORT}
+      - LOG_LEVEL=${LOG_LEVEL}
+    networks:
+      - backend
+    volumes:
+      - media:/opt/app/uploads
+    depends_on:
+      - database
+#      - minio
+
+  database:
+    image: postgres
+    environment:
+      #    ВАЖНО!!! не добавлять кавычки к переменным, например DEBUG='True' нельзя, нужно DEBUG=True
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    networks:
+      - backend
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  nginx:
+    build:
+      context: nginx
+      dockerfile: Dockerfile
+#    image: nginx_image
+    networks:
+      - backend
+    ports:
+      - '8080:8080'
+#    volumes:
+#      - static:/backend-static
+#      - media:/backend-media
+    depends_on:
+      - server
+
+#  minio:
+#    build:
+#      context: minio
+#      dockerfile: Dockerfile
+#    networks:
+#      - backend
+#    ports:
+#      - '9000:9000'
+#    volumes:
+#      - minio_data:/data
+
+#  redis:
+#    image: redis
+#    networks:
+#      - backend
+#    volumes:
+#      - redis_data:/data
+
+networks:
+  backend:
+
+volumes:
+  db_data:
+#  static:
+  media:
+#  minio_data:
+#  redis_data:
