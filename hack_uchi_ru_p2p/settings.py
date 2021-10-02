@@ -42,16 +42,19 @@ INSTALLED_APPS = [
     # 'corsheaders'
     'rest_framework.authtoken',
     'channels',
+    'corsheaders',
 
     'core.apps.CoreConfig',
     'accounts.apps.AccountsConfig',
     'chat.apps.ChatConfig',
-    'shop.apps.ShopConfig'
+    'shop.apps.ShopConfig',
+    'achievements.apps.AchievementsConfig',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -163,6 +166,13 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    'http://localhost:3000',
+]
 
 ASGI_APPLICATION = "hack_uchi_ru_p2p.routing.application"
 CHANNEL_LAYERS = {

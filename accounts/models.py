@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+from achievements.db_models.achievement_db_model import Achievement
 from core.db_models.faculty_db_model import Faculty
 
 
@@ -43,6 +44,8 @@ class CustomUser(AbstractUser):
     referral = models.ForeignKey(
         'self', on_delete=models.SET_NULL, null=True, blank=True
     )
+
+    achievement = models.ManyToManyField(Achievement, blank=True)
 
     class Meta:
         verbose_name = 'Пользователь'

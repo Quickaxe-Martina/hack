@@ -6,6 +6,7 @@ from accounts.api_views.auth_api_view import UserAuthAPIView
 from accounts.api_views.avatar_api_view import UserAvatarAPIView
 from accounts.api_views.register_api_view import RegisterAPIView
 from accounts.api_views.user_api_view import UserListView, UserDetailView
+from achievements.api_views.achievement_api_view import AchievementRetrieveView, AchievementListView
 from chat.api_views.chat_api_view import ChatAPIView
 from chat.api_views.message_api_view import MessageChatListCreateView
 from core.api_views.answer_api_view import AnswerListView, AnswerDetailAPIView
@@ -56,6 +57,11 @@ urlpatterns = [
     # shop
     path('shop_items/', ShopItemListView.as_view()),
     path('purchases/', PurchasesListView.as_view()),
+
+    # achievement
+    path('achievement/<int:pk>/', AchievementRetrieveView.as_view()),
+    path('achievement/', AchievementListView.as_view()),
+
 ]
 
 
