@@ -15,7 +15,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"test1\",\n    \"password\": \"qsc_user@1\",\n    \"first_name\": \"user\",\n    \"last_name\": \"user\",\n    \"middle_name\": \"user\",\n    \"email\": \"user@email.ru\"\n}",
+							"raw": "{\n    \"username\": \"test8\",\n    \"password\": \"qsc_user@1\",\n    \"first_name\": \"user\",\n    \"last_name\": \"user\",\n    \"middle_name\": \"user\",\n    \"email\": \"user@email.ru\",\n    \"role\": \"student\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -31,6 +31,13 @@
 								"user",
 								"register",
 								""
+							],
+							"query": [
+								{
+									"key": "referral",
+									"value": "2",
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -121,6 +128,40 @@
 							}
 						],
 						"url": {
+							"raw": "{{url}}/user/6/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"6",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Изменить профиль",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first_name\": \"aaa\",\n    \"last_name\": \"aaa\",\n    \"middle_name\": \"aaa\",\n    \"email\": \"dddf@ssd.fd\",\n    \"birthday\": \"2010-09-09\",\n    \"instagram\": \"https://github.com/aseem-hegshetye/Video_call_and_chat_in_Django\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
 							"raw": "{{url}}/user/2/",
 							"host": [
 								"{{url}}"
@@ -192,6 +233,31 @@
 							],
 							"path": [
 								"faculty",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Инфа по конкретному факультету",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/faculty/1/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"faculty",
+								"1",
 								""
 							]
 						}

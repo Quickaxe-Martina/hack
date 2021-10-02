@@ -7,7 +7,7 @@ from core.serializers.faculty_serializer import FacultySerializer
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['username', 'password', 'first_name', 'last_name', 'middle_name',]
+        fields = ['username', 'password', 'first_name', 'last_name', 'middle_name', 'role']
 
 
 class UserAuthSerializer(serializers.Serializer):
@@ -22,6 +22,10 @@ class CustomUserSerializer(serializers.ModelSerializer):
         model = CustomUser
         fields = [
             'id', 'username', 'first_name', 'last_name', 'middle_name',
-            'email', 'faculty', 'avatar', 'y_coin', 'faculty_count', 'level', 'exp_count'
+            'email', 'faculty', 'avatar', 'y_coin', 'faculty_count', 'level', 'exp_count',
+            'birthday', 'instagram', 'role'
         ]
-        read_only_fields = ['id',]
+        read_only_fields = [
+            'id', 'username', 'faculty', 'y_coin', 'faculty_count', 'level',
+            'exp_count', 'role'
+        ]

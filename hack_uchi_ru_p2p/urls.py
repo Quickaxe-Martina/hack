@@ -9,7 +9,7 @@ from accounts.api_views.user_api_view import UserListView, UserDetailView
 from chat.api_views.chat_api_view import ChatAPIView
 from chat.api_views.message_api_view import MessageChatListCreateView
 from core.api_views.answer_api_view import AnswerListView, AnswerDetailAPIView
-from core.api_views.faculty_api_view import FacultyListView
+from core.api_views.faculty_api_view import FacultyListView, FacultyRetrieveView
 from core.api_views.like_api_view import LikeAPIView
 from core.api_views.question_api_view import QuestionListView, QuestionDetailAPIView
 from core.api_views.subject_api_view import SubjectListView
@@ -29,6 +29,7 @@ urlpatterns = [
     path('user/', UserListView.as_view()),
 
     # faculty
+    path('faculty/<int:pk>/', FacultyRetrieveView.as_view()),
     path('faculty/', FacultyListView.as_view()),
 
     # subject

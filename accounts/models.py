@@ -6,6 +6,10 @@ from core.db_models.faculty_db_model import Faculty
 
 class CustomUser(AbstractUser):
 
+    class Role(models.TextChoices):
+        TEACHER = 'teacher', 'Учитель'
+        STUDENT = 'student', 'Ученик'
+
     first_name = models.CharField(max_length=150, verbose_name='Имя')
     last_name = models.CharField(max_length=150, verbose_name='Фамилия')
     middle_name = models.CharField(max_length=150, blank=True, default='', verbose_name='Отчество')
@@ -26,6 +30,19 @@ class CustomUser(AbstractUser):
     faculty_count = models.PositiveIntegerField(default=0, verbose_name='Очки факультета')
 
     avatar = models.ImageField(upload_to='user_avatar', verbose_name='Аватар', blank=True)
+
+    birthday = models.DateField(blank=True, null=True, verbose_name='День рождения')
+
+    instagram = models.URLField(blank=True, null=True, verbose_name='Инстаграм')
+
+    role = models.CharField(
+        max_length=50, choices=Role.choices, default=Role.STUDENT,
+        blank=True, verbose_name='Роль'
+    )
+
+    referral = models.ForeignKey(
+        'self', on_delete=models.SET_NULL, null=True, blank=True
+    )
 
     class Meta:
         verbose_name = 'Пользователь'

@@ -13,7 +13,13 @@ class RegisterAPIView(APIView):
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user = CustomUser.objects.create_user(**serializer.validated_data)
+        try:
+            r_id = int(request.query_params.get('referral'))
+            r_user = CustomUser.objects.get(pk=r_id)
+        except Exception:
+            r_user = None
+
+        user = CustomUser.objects.create_user(**serializer.validated_data, referral=r_user)
         faculty = Faculty.objects.annotate(
             user_count=Count('custom_users')
         ).order_by(

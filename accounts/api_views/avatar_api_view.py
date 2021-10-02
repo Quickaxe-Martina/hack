@@ -1,6 +1,7 @@
 import os
 import uuid
 
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -10,6 +11,7 @@ from accounts.serializers.custom_user_serializer import CustomUserSerializer
 
 class UserAvatarAPIView(APIView):
     http_method_names = ['post']
+    permission_classes = [IsAuthenticated]
 
     def post(self, request):
         serializer = UserAvatarSerializer(data=request.data)
