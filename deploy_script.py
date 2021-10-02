@@ -144,17 +144,19 @@ QUESTION_DATA = {
 }
 
 for s in QUESTION_DATA:
+    print(s)
     if Subject.objects.filter(name=s).exists():
         sub = Subject.objects.get(name=s)
     else:
         sub = Subject.objects.create(name=s)
 
     for t in QUESTION_DATA[s]:
+        print(t)
         if Topic.objects.filter(name=t).exists():
             top = Topic.objects.get(name=t)
         else:
             top = Topic.objects.create(name=t, subject=sub)
-        for q in t:
+        for q in QUESTION_DATA[s][t]:
             if not Question.objects.filter(text=q).exists():
                 Question.objects.create(
                     author_id=1,
