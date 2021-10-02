@@ -25,12 +25,17 @@ class AIModel(metaclass=MetaSingleton):
         self.embeddings = None
 
     def prepare_model(self, questions):
+        print('prepare_model')
+        print(self.questions)
         self.model = SentenceTransformer('distiluse-base-multilingual-cased-v1', cache_folder='models/')
         self.questions = questions
         self.questions_dict = {q.text: q for q in self.questions}
         self.embeddings = self.model.encode([q.text for q in self.questions])
 
     def get_close_questions(self, question_text):
+        if self.model is None:
+            from core.db_models.question_db_model import Question
+            self.prepare_model(Question.objects.all())
         question_text_vector = self.model.encode([question_text])[0]
         cos_sim = util.cos_sim(self.embeddings, question_text_vector)
 
@@ -55,3 +60,9 @@ class AIModel(metaclass=MetaSingleton):
             all_questions.append(self.questions_dict[sent['sentence']])
 
         return all_questions
+
+    def clear(self):
+        self.model = None
+        self.questions = None
+        self.questions_dict = None
+        self.embeddings = None

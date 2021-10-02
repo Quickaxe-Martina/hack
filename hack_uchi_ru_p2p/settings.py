@@ -188,3 +188,5 @@ CHANNEL_LAYERS = {
 }
 
 MIN_COS_SIM = 0.4
+START_SCHEDULER = os.getenv('START_SCHEDULER', False)
+AI_MODEL = os.getenv('AI_MODEL', False)

@@ -25,7 +25,7 @@ class Question(models.Model):
 
     prise = models.PositiveIntegerField(default=1, verbose_name='Награда')
 
-    deadline = models.DateTimeField(verbose_name='Контрольный срок')
+    deadline = models.DateTimeField(verbose_name='Контрольный срок', blank=True, null=True)
     exigent = models.BooleanField(default=False, verbose_name='Срочный вопрос')
 
     status = models.CharField(
