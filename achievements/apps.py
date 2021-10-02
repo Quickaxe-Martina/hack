@@ -1,3 +1,5 @@
+import os
+
 from django.apps import AppConfig
 
 
@@ -5,10 +7,11 @@ class AchievementsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'achievements'
 
-    def ready(self):
-        from core.tools.model_class import AIModel
-        from core.db_models.question_db_model import Question
+    if os.environ.get('FIRST_BUILD', False) not in ('true', 'True'):
+        def ready(self):
+            from core.tools.model_class import AIModel
+            from core.db_models.question_db_model import Question
 
-        questions = Question.objects.all()
+            questions = Question.objects.all()
 
-        AIModel().prepare_model(questions)
+            AIModel().prepare_model(questions)
