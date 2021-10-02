@@ -132,3 +132,4 @@ dmypy.json
 /static/
 media/
 uchi_hack.pem
+/models/

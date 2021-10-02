@@ -10,7 +10,9 @@ from accounts.models import CustomUser
 from core.db_models.answer_db_model import Answer
 from core.db_models.question_db_model import Question
 from core.serializers.answer_serializer import AnswerCloseQuestionSerializer
+from core.serializers.best_question_serializer import BestQuestionSerializer
 from core.serializers.question_serializer import QuestionSerializer, QuestionDetailSerializer
+from core.tools.model_class import AIModel
 from core.tools.update_dict import update_from_dict
 
 
@@ -92,3 +94,15 @@ class QuestionDetailAPIView(APIView):
         q.status = 'closed'
         q.save()
         return Response(data=serializer.validated_data)
+
+
+class BestQuestionsAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+    http_method_names = ['post']
+
+    def post(self, request):
+        serializer = BestQuestionSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        best = AIModel().get_close_questions(serializer.data['text'])
+        return Response(QuestionSerializer(best, many=True).data)

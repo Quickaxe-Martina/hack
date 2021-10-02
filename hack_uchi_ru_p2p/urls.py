@@ -12,9 +12,9 @@ from chat.api_views.message_api_view import MessageChatListCreateView
 from core.api_views.answer_api_view import AnswerListView, AnswerDetailAPIView
 from core.api_views.faculty_api_view import FacultyListView, FacultyRetrieveView
 from core.api_views.like_api_view import LikeAPIView
-from core.api_views.question_api_view import QuestionListView, QuestionDetailAPIView
+from core.api_views.question_api_view import QuestionListView, QuestionDetailAPIView, BestQuestionsAPIView
 from core.api_views.subject_api_view import SubjectListView
-from core.api_views.topic_api_view import TopicListView
+from core.api_views.topic_api_view import TopicListView, BestTopicAPIView
 from hack_uchi_ru_p2p import settings
 from shop.api_views.purchases_api_view import PurchasesListView
 from shop.api_views.shop_item_api_view import ShopItemListView
@@ -38,10 +38,12 @@ urlpatterns = [
 
     # topic
     path('topic/', TopicListView.as_view()),
+    path('best_topic/', BestTopicAPIView.as_view()),
 
     # question
     path('question/<int:pk>/', QuestionDetailAPIView.as_view()),
     path('question/', QuestionListView.as_view()),
+    path('best_question/', BestQuestionsAPIView.as_view()),
 
     # answer
     path('answer/<int:pk>/', AnswerDetailAPIView.as_view()),
