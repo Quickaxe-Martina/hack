@@ -1,13 +1,12 @@
 import django
 
-from core.db_models.question_db_model import Question
-from core.db_models.subject_db_model import Subject
-from core.db_models.topic_db_model import Topic
-
 django.setup()
 
 from accounts.models import CustomUser
 from core.db_models.faculty_db_model import Faculty
+from core.db_models.question_db_model import Question
+from core.db_models.subject_db_model import Subject
+from core.db_models.topic_db_model import Topic
 
 # How to run:
 # python manage.py shell
