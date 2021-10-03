@@ -15,7 +15,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"test8\",\n    \"password\": \"qsc_user@1\",\n    \"first_name\": \"user\",\n    \"last_name\": \"user\",\n    \"middle_name\": \"user\",\n    \"email\": \"user@email.ru\",\n    \"role\": \"student\"\n}",
+							"raw": "{\n    \"username\": \"test1\",\n    \"password\": \"qsc_user@1\",\n    \"first_name\": \"user\",\n    \"last_name\": \"user\",\n    \"middle_name\": \"user\",\n    \"email\": \"user@email.ru\",\n    \"role\": \"student\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -128,13 +128,13 @@
 							}
 						],
 						"url": {
-							"raw": "{{url}}/user/6/",
+							"raw": "{{url}}/user/2/",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"user",
-								"6",
+								"2",
 								""
 							]
 						}
@@ -204,6 +204,54 @@
 							"path": [
 								"user",
 								"load_avatar",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Дашборд юзеру",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/user_dashboard/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user_dashboard",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ачивки юзера",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/user_achievement/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user_achievement",
 								""
 							]
 						}
@@ -310,7 +358,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{url}}/topic/?subject={{subject}}",
+							"raw": "{{url}}/topic/",
 							"host": [
 								"{{url}}"
 							],
@@ -321,7 +369,86 @@
 							"query": [
 								{
 									"key": "subject",
-									"value": "{{subject}}"
+									"value": "{{subject}}",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Поиск похожих тем",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"text\": \"закончилась Великая Отечественная\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/best_topic/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"best_topic",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Создать тему",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"dfdf\",\n    \"subject\": 21\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/topic/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"topic",
+								""
+							],
+							"query": [
+								{
+									"key": "subject",
+									"value": "{{subject}}",
+									"disabled": true
 								},
 								{
 									"key": "name",
@@ -505,6 +632,39 @@
 							"path": [
 								"question",
 								"{{question_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Поиск похожих вопросов",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"text\": \"каком году\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/best_question/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"best_question",
 								""
 							]
 						}
@@ -757,7 +917,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"type_chat\": \"group\",\n    \"users_list\": [1, 2],\n    \"question\": 1\n}",
+							"raw": "{\n    \"type_chat\": \"group\",\n    \"users_list\": [1, 3],\n    \"question\": 1\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -966,6 +1126,60 @@
 			]
 		},
 		{
+			"name": "achievement",
+			"item": [
+				{
+					"name": "Список достижений",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/achievement/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"achievement",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Деталка ачивки",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/achievement/1/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"achievement",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "base req",
 			"request": {
 				"method": "GET",
@@ -982,6 +1196,15 @@
 						"{{url}}"
 					]
 				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
 			},
 			"response": []
 		}
