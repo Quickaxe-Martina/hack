@@ -1,9 +1,12 @@
+from django.db.models import Q
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from django.shortcuts import get_object_or_404
 
 from chat.db_models.chat_db_model import Chat, ThroughUserChat
 from chat.serializers.chat_serializer import ChatSerializer, ChatDetailSerializer
+from core.serializers.answer_serializer import AnswerCloseQuestionSerializer
 
 
 class ChatAPIView(APIView):
@@ -39,3 +42,31 @@ class ChatAPIView(APIView):
         except Exception:
             return Response(status=400)
         return Response(data=ChatDetailSerializer(chat).data, status=201)
+
+
+class ChatDetailAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+    http_method_names = ['get', 'post']
+
+    def post(self, request, pk):
+        """ Закрыть чат """
+        chat = get_object_or_404(Chat, pk=pk, question__status='in_progress', question__author=request.user)
+        serializer = AnswerCloseQuestionSerializer(data=request.data, many=True)
+        serializer.is_valid(raise_exception=True)
+
+        map_answers = {a['id']: a['user_grade'] for a in serializer.validated_data}
+        users = ThroughUserChat.objects.filter(~Q(user=request.user), user_id__in=map_answers.keys())
+
+        q = chat.question
+        y_coin = q.prise * 4 / users.count()
+        for usr in users:
+            usr.user_grade = map_answers[usr.pk]
+            user = usr.user
+            user.add_coins(y_coin)
+            user.add_exp(map_answers[usr.pk] * 30)
+            user.add_faculty_count(map_answers[usr.pk])
+        ThroughUserChat.objects.bulk_update(users, ['user_grade'])
+
+        q.status = 'closed'
+        q.save()
+        return Response()

@@ -5,7 +5,8 @@ from django.urls import path
 from accounts.api_views.auth_api_view import UserAuthAPIView
 from accounts.api_views.avatar_api_view import UserAvatarAPIView
 from accounts.api_views.register_api_view import RegisterAPIView
-from accounts.api_views.user_api_view import UserListView, UserDetailView
+from accounts.api_views.user_api_view import UserListView, UserDetailView, UserAchievementAPIView
+from accounts.api_views.users_dashboard_api_view import UserDashboardAPIView
 from achievements.api_views.achievement_api_view import AchievementRetrieveView, AchievementListView
 from chat.api_views.chat_api_view import ChatAPIView
 from chat.api_views.message_api_view import MessageChatListCreateView
@@ -28,6 +29,8 @@ urlpatterns = [
     path('user/load_avatar/', UserAvatarAPIView.as_view()),
     path('user/<int:pk>/', UserDetailView.as_view()),
     path('user/', UserListView.as_view()),
+    path('user_dashboard/', UserDashboardAPIView.as_view()),
+    path('user_achievement/', UserAchievementAPIView.as_view()),
 
     # faculty
     path('faculty/<int:pk>/', FacultyRetrieveView.as_view()),

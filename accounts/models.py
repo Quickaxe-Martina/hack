@@ -22,7 +22,7 @@ class CustomUser(AbstractUser):
     level = models.FloatField(default=0.0, verbose_name='Уровень')
     exp_count = models.BigIntegerField(default=0, verbose_name='Количество опыта')
 
-    y_coin = models.PositiveIntegerField(default=0, verbose_name='Валюта')
+    y_coin = models.FloatField(default=0.0, verbose_name='Валюта')
 
     faculty = models.ForeignKey(
         Faculty, on_delete=models.SET_NULL, verbose_name='Факультет',
@@ -53,3 +53,22 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.username
+
+    def add_coins(self, coins):
+        self.y_coin += coins
+        if self.referral:
+            self.referral.y_coin += coins * 0.1
+            self.referral.save()
+        self.save()
+
+    def add_faculty_count(self, faculty_count):
+        self.faculty_count += faculty_count
+        if self.faculty:
+            self.faculty.score += faculty_count
+            self.faculty.save()
+        self.save()
+
+    def add_exp(self, exp_count):
+        self.exp_count += exp_count
+        self.level = exp_count / 100.0
+        self.save()

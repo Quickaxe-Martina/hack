@@ -2,9 +2,11 @@ from django_filters import rest_framework as filters
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from accounts.models import CustomUser
 from accounts.serializers.custom_user_serializer import CustomUserSerializer
+from achievements.serializers.achievement_serializer import AchievementSerializer
 
 
 class UserListView(generics.ListAPIView):
@@ -34,3 +36,13 @@ class UserDetailView(generics.RetrieveUpdateAPIView):
             instance._prefetched_objects_cache = {}
 
         return Response(serializer.data)
+
+
+class UserAchievementAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+    http_method_names = ['get']
+
+    def get(self, request):
+        return Response(
+            data=AchievementSerializer(request.user.achievement.all(), many=True).data
+        )
