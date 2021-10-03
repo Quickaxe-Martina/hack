@@ -22,7 +22,10 @@ class QuestionListView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     http_method_names = ['get', 'post']
     filter_backends = (filters.DjangoFilterBackend,)
-    filterset_fields = ('topic__subject', 'topic', 'status', 'author')
+    filterset_fields = (
+        'topic__subject', 'topic', 'status', 'author', 'answers__author',
+        # 'created__gte', 'created__lte'
+    )
 
     def create(self, request, *args, **kwargs):
         serializer = QuestionSerializer(data=request.data)
