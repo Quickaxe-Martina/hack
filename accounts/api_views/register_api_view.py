@@ -27,4 +27,6 @@ class RegisterAPIView(APIView):
         ).first()
         user.faculty = faculty
         user.save()
+        if r_user:
+            r_user.add_coins(20)
         return Response(status=201, data=CustomUserSerializer(user).data)
