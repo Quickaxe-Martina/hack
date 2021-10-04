@@ -6,4 +6,4 @@ cd compiled_project/
 
 sudo docker-compose up --build
 
-Все методы добавлемы в postman
+Все методы добавлены в postman
